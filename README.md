@@ -7,6 +7,11 @@ Creato progetto no standalone e senza test: ng new observableTest --no-standalon
 
 ## [RxJS Operators](https://rxjs.dev/guide/operators)
 
-## Descrizione dei metodi nelle reference di RxJS:
+## Descrizione dei metodi nelle reference di RxJS
 
 - [map operator](https://rxjs.dev/guide/operators)
+
+## [signals di Angular](https://angular.dev/guide/signals)
+
+- [signals angular university](https://blog.angular-university.io/angular-signals/)
+- [effects](https://angular.dev/guide/signals#effects)
