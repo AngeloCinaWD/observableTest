@@ -6,6 +6,7 @@ import {
   inject,
   signal,
 } from '@angular/core';
+import { toObservable } from '@angular/core/rxjs-interop';
 import { interval, map } from 'rxjs';
 
 @Component({
@@ -27,6 +28,10 @@ export class AppComponent {
   // creo una proprietà che è un signal con valore iniziale 0
   clickCount = signal(0);
   clickCount2 = signal(0);
+
+  // con il metodo toOservable() è possibile convertire un signal in un observable, si passa il signal non eseguito
+  // per convenzione si utilizza il dollaro finale per indicare che è un observable
+  clickCount$ = toObservable(this.clickCount);
 
   // angular mette a disposizione anche il metodo computed() che permette di fare qualcosa ogni volta che il signal indicato al suo interno cambia
   // inquesto caso ad ogni click del button relativo a clickCount si aggiornerà anche questo valore mostrando il valore di clickCount moltiplicato 2
@@ -56,6 +61,15 @@ export class AppComponent {
     //   console.log('distruggo tutto');
     //   subscription.unsubscribe();
     // });
+
+    // mi iscrivo all'observable ottenuto dalla conversione del signal clickCount
+    // salvo la sottoscrizione in una costante per poi poterla chiudere alla distruzione del componente
+    // ogni volta che il signal cambierà valore, questo nuovo valore verrà emesso dall'observable da esso ricavato
+    const subscriptionFromSignal = this.clickCount$.subscribe((val) =>
+      console.log(`Nuovo valore emesso da observable: ${this.clickCount()}`)
+    );
+
+    this.destroyRef.onDestroy(() => subscriptionFromSignal.unsubscribe());
   }
 
   // in angular esiste una feature simile agli observable di RxJS, i signals
