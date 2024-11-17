@@ -49,6 +49,7 @@ export class AppComponent {
   // creo un contatore di volte che è stato emesso e lo utilizzo per creare un observable che si completa e non ci sarà bisogno di fare l'unscribe
   customInterval$ = new Observable((subscriber) => {
     let timesExecuted = 0;
+    // per gestire anche gli errori in caso l'observable smetta di emettere valori
     // subscriber.error();
     const interval = setInterval(() => {
       if (timesExecuted > 3) {
